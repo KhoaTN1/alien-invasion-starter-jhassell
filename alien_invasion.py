@@ -1,11 +1,13 @@
 import sys
 import random
 import pygame
+from settings import Settings
 
 
 def main():
     pygame.init()
-    WIDTH, HEIGHT = 800, 600
+    settings = Settings()
+    WIDTH, HEIGHT = settings.screen_width, settings.screen_height
     FPS = 60
 
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -14,7 +16,7 @@ def main():
 
     # Create background surface with black and small white 'stars'
     bg = pygame.Surface((WIDTH, HEIGHT))
-    bg.fill((0, 0, 0))
+    bg.fill(settings.bg_color)
 
     # Generate starfield: positions and sizes
     num_stars = 300

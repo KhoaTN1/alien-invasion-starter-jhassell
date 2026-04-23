@@ -1,7 +1,7 @@
 class Settings:
     """A simple settings class for game screen configuration."""
 
-    def __init__(self, width=1600, height=900, bg_color=(230, 230, 230)):
+    def __init__(self, width=1600, height=900, bg_color=(0, 0, 0)):
         """Initialize screen settings.
 
         Args:
