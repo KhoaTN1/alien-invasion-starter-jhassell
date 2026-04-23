@@ -25,6 +25,27 @@ class Ship:
         self.rect.midbottom = self.screen_rect.midbottom
         self.rect.y -= 10
 
+        # Movement attributes
+        self.speed = 3.0
+        self.moving_right = False
+        self.moving_left = False
+
+        # Store a float x value for precise movement
+        self.x = float(self.rect.x)
+
     def draw(self):
         """Draw the ship to the screen."""
         self.screen.blit(self.image, self.rect)
+
+    def update(self):
+        """Update ship position based on movement flags and screen boundaries."""
+        # Move right
+        if self.moving_right and self.rect.right < self.screen_rect.right:
+            self.x += self.speed
+
+        # Move left
+        if self.moving_left and self.rect.left > 0:
+            self.x -= self.speed
+
+        # Update rect from float position
+        self.rect.x = int(self.x)
