@@ -4,7 +4,7 @@ import pygame
 class Bullet(pygame.sprite.Sprite):
     """A bullet fired from the ship, moving upward and killing itself off-screen."""
 
-    def __init__(self, screen, x, y, speed=7, color=(60, 60, 60)):
+    def __init__(self, screen, x, y, speed=7, color=(250, 250, 250)):
         super().__init__()
         self.screen = screen
 
