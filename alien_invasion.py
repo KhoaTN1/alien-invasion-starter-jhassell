@@ -3,6 +3,7 @@ import random
 import pygame
 from settings import Settings
 from ship import Ship
+from bullet import Bullet
 
 
 def main():
@@ -17,6 +18,12 @@ def main():
 
     # Create a ship instance
     ship = Ship(settings, screen)
+
+    # Bullets group and firing control
+    bullets = pygame.sprite.Group()
+    firing = False
+    last_shot = 0
+    shot_delay = 250  # milliseconds between shots when holding space
 
     # Create background surface with black and small white 'stars'
     bg = pygame.Surface((WIDTH, HEIGHT))
@@ -47,15 +54,32 @@ def main():
                     ship.moving_right = True
                 elif event.key == pygame.K_LEFT:
                     ship.moving_left = True
+                elif event.key == pygame.K_SPACE:
+                    # start firing (will respect shot limit and cooldown)
+                    firing = True
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_RIGHT:
                     ship.moving_right = False
                 elif event.key == pygame.K_LEFT:
                     ship.moving_left = False
+                elif event.key == pygame.K_SPACE:
+                    firing = False
 
         # Update and draw
         ship.update()
+
+        # Handle firing: allow up to 3 active bullets and a small cooldown
+        now = pygame.time.get_ticks()
+        if firing and len(bullets) < 3 and now - last_shot >= shot_delay:
+            # create a bullet at the ship's current top-center
+            b = Bullet(screen, ship.rect.centerx, ship.rect.top)
+            bullets.add(b)
+            last_shot = now
+
+        bullets.update()
+
         screen.blit(bg, (0, 0))
+        bullets.draw(screen)
         ship.draw()
 
         pygame.display.flip()
