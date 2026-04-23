@@ -2,6 +2,7 @@ import sys
 import random
 import pygame
 from settings import Settings
+from ship import Ship
 
 
 def main():
@@ -13,6 +14,9 @@ def main():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption('Alien invasion')
     clock = pygame.time.Clock()
+
+    # Create a ship instance
+    ship = Ship(settings, screen)
 
     # Create background surface with black and small white 'stars'
     bg = pygame.Surface((WIDTH, HEIGHT))
@@ -40,6 +44,7 @@ def main():
                 running = False
 
         screen.blit(bg, (0, 0))
+        ship.draw()
 
         pygame.display.flip()
         clock.tick(FPS)
