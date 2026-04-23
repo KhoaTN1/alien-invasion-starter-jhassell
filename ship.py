@@ -26,7 +26,7 @@ class Ship:
         self.rect.y -= 10
 
         # Movement attributes
-        self.speed = 7.0
+        self.speed = 5.85
         self.moving_right = False
         self.moving_left = False
 
